@@ -1,0 +1,19 @@
+nc16_jsahmad
+
+Nickolas Casalinuovo
+Jamil Saadi Ahmad
+
+Assignment 1
+
+Nick: I worked on building out the frond-end and integrating our past code. I built the form and templates needed to interact with the page. I also worked on compartmetalizing the code a little bit more to keep things tidy.
+
+Saadi: I fixed bugs (course num query issues, flask exception handling), comprehensively tested the code (automated statement, boundary, coverage tests), wrote/fixed code to match to assignment specifications/style, and worked on all error handling .
+
+Help Received: N/a
+
+Information Used:
+
+Time Spent: 3 hours
+
+Assesment: (Nick) I've worked with web design a lot, moreso with Django/React than Flask, but my previous experience defintely helped speed up the processes.
+
