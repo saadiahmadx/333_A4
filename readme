@@ -1,12 +1,3 @@
-TODO:
-    Fix state handling issue (from previous assignment grader)
-    Implement A4:
-        - auto-refresh: uses JavaScript and AJAX to generate new output in its primary page each time the user types a new input character
-        - application responsive to browser window size + better aesthetics
-        - 
-
-
-
 nc16_jsahmad
 
 Nickolas Casalinuovo
@@ -16,7 +7,11 @@ Assignment 1
 
 Nick: 
 
-Saadi: 
+Saadi: I changed the style of the html code to a 
+responsive layout with a princeton color theme. I 
+also implemented the jquery/ajax code in the html 
+template and the flask /searchresults code. I did 
+some quick bug fixes and basic testing.
 
 Help Received: N/A
 
