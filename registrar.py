@@ -3,11 +3,10 @@ import flask
 import templates
 import database
 
-# -----------------------------------------------------------------------
-
+# --------------------------------------------------
 app = flask.Flask(__name__)
 
-# -----------------------------------------------------------------------
+# --------------------------------------------------
 
 
 def error(string):
@@ -73,7 +72,7 @@ def format_classes(classes):
     return templates.SEARCH_RESULTS_TEMPLATE.replace("{{results}}", results)
 
 
-# -----------------------------------------------------------------------
+# --------------------------------------------------
 
 
 @app.route("/", methods=["GET"])
@@ -110,22 +109,22 @@ def index():
         )
         return flask.make_response(error_page)
 
-    else:
-        search_results = format_classes(classes)
+    search_results = format_classes(classes)
 
-        html_code = templates.INDEX_TEMPLATE.replace(
-            "{{header}}", header)
-        html_code = html_code.replace("{{form}}", form)
-        html_code = html_code.replace(
-            "{{search_results}}", search_results)
-        html_code = html_code.replace("{{footer}}", footer)
+    html_code = templates.INDEX_TEMPLATE.replace(
+        "{{header}}", header)
+    html_code = html_code.replace("{{form}}", form)
+    html_code = html_code.replace(
+        "{{search_results}}", search_results)
+    html_code = html_code.replace("{{footer}}", footer)
 
-        response = flask.make_response(html_code)
+    response = flask.make_response(html_code)
 
-        return response
+    return response
 
 
-# -----------------------------------------------------------------------
+# --------------------------------------------------
+
 @app.route("/searchresults", methods=["GET"])
 def search_results():
     dept = flask.request.args.get("dept")
@@ -134,13 +133,14 @@ def search_results():
     title = flask.request.args.get("title")
 
     classes = database.filter_classes(dept, num, area, title)
-    search_results = format_classes(classes)
+    results = format_classes(classes)
 
-    response = flask.make_response(search_results)
+    response = flask.make_response(results)
     return response
 
+# --------------------------------------------------
 
-# -----------------------------------------------------------------------
+
 @app.route("/regdetails", methods=["GET"])
 def reg_details():
     header = templates.HEADER_TEMPLATE
@@ -164,7 +164,7 @@ def reg_details():
     try:
         class_id = int(class_id)
         class_id = str(class_id)
-    except:
+    except Exception:
         return flask.make_response(
             error_page.replace(
                 "{{error}}", "Class id must be an integer.")
@@ -181,7 +181,8 @@ def reg_details():
 
     if not class_details:
         error_page = error_page.replace(
-            "{{error}}", "Class details could not be fetched for this class id."
+            "{{error}}", """Class details could not
+            be fetched for this class id."""
         )
         return flask.make_response(error_page)
 

@@ -77,7 +77,8 @@ def filter_classes(dept=None, num=None, area=None, title=None):
     Class descriptions filtered on inputs
     """
     try:
-        with sqlite3.connect("reg.sqlite", isolation_level=None) as connection:
+        with sqlite3.connect("reg.sqlite",
+                             isolation_level=None) as connection:
             with contextlib.closing(connection.cursor()) as cursor:
                 query_head = """
                     SELECT cl.classid, cross.dept, cross.coursenum,
@@ -113,9 +114,10 @@ def filter_classes(dept=None, num=None, area=None, title=None):
                     output.append(class_object)
                 return output
 
-    except Exception as ex:
+    except Exception:
         print(
-            "A server error occured. Please contact the system administrator.",
+            """A server error occured.
+            Please contact the system administrator.""",
             file=sys.stderr,
         )
         return False
