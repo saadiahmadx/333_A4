@@ -288,14 +288,38 @@ ERROR_PAGE_TEMPLATE = ('''
     <!DOCTYPE html>
         <html>
         <head>
-            <title>Registrar's Office</title>
+            <title>Registrar's Office Class Search</title>
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <style>
+                h1 {
+                    font-family: "Lato";
+                    font-size:calc(2vw + 20px);
+
+                }
+                body {
+                    font-family: "Lato";
+                    line-height: 1.5rem;
+
+                }
+                .footer {
+                    background-color:#E77500; 
+                    color:white;
+                    padding: 10px;
+                    border-radius: 25px;
+                    border-top-left-radius:0px;
+                    border-top-right-radius:0px;
+                }
+                strong {
+                    font-weight: bold;
+                }
+            </style>
         </head>
         <body>
-            {{header}}
-            <hr>
-            <p><i>{{error}}</i></p>
-            <hr>
-            <p> Click here to do <a href="/">another class search</a></p>
+            <center><h1 style="background-color:#E77500; color:white" >Registrar's Office: Class Search</h1></center>
+
+            <p><strong>{{error}}</strong></p>
+
             {{footer}}
         </body>
     </html>
