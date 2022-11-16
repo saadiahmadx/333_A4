@@ -69,7 +69,8 @@ def format_classes(classes):
         else:
             results += "<td></td>"
         results += "</tr>"
-    return templates.SEARCH_RESULTS_TEMPLATE.replace("{{results}}", results)
+    return templates.SEARCH_RESULTS_TEMPLATE.replace("{{results}}",
+                                                     results)
 
 
 # --------------------------------------------------
@@ -109,13 +110,13 @@ def index():
         )
         return flask.make_response(error_page)
 
-    search_results = format_classes(classes)
+    results = format_classes(classes)
 
     html_code = templates.INDEX_TEMPLATE.replace(
         "{{header}}", header)
     html_code = html_code.replace("{{form}}", form)
     html_code = html_code.replace(
-        "{{search_results}}", search_results)
+        "{{search_results}}", results)
     html_code = html_code.replace("{{footer}}", footer)
 
     response = flask.make_response(html_code)
