@@ -12,10 +12,10 @@ FORM_TEMPLATE = ('''
 
 <form action="" method="get">
     <div class='search' style="">
-            <input type="text" style="color:white" name="dept" placeholder="Department" value="{{dept}}">
-            <input type="text" name="coursenum" placeholder="Number" value="{{coursenum}}">
-            <input type="text" name="area" placeholder="Area" value="{{area}}">
-            <input type="text" name="title" placeholder="Title" value="{{title}}">
+            <input id="DEPT" type="text" style="color:white" name="dept" placeholder="Department" value="{{dept}}" autoFocus>
+            <input id="NUM" type="text" name="coursenum" placeholder="Number" value="{{coursenum}}">
+            <input id="AREA" type="text" name="area" placeholder="Area" value="{{area}}">
+            <input id="TITLE" type="text" name="title" placeholder="Title" value="{{title}}">
     </div>
 </form>
 <br>
@@ -42,6 +42,7 @@ INDEX_TEMPLATE = ('''
         <html>
         <head>
             <title>Registrar's Office Class Search</title>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -167,13 +168,58 @@ INDEX_TEMPLATE = ('''
         <body>
         <div style="background-color:#E77500;border-radius: 15px;">
             {{header}}
-            <div style="">
+
             {{form}}
-            </div>
+
             
         </div>
+        <div id="RESULTS"> 
             {{search_results}}
+        </div>
+            
             {{footer}}
+
+        <script>
+            'use strict';
+            function handleResponse(response){
+                $('#RESULTS').html(response);
+            }
+            var request = null;
+            function getResults(){
+                let dept = $('#DEPT').val();
+                let num = $('#NUM').val();
+                let area = $('#AREA').val();
+                let title = $('#TITLE').val();
+                dept = encodeURIComponent(dept);
+                num = encodeURIComponent(num);
+                area = encodeURIComponent(area);
+                title = encodeURIComponent(title);
+                url = '/searchresults?dept=' + dept + '&num=' + num + '&area=' + area + '&title=' + title;
+             
+
+                if (request != null){
+                    request.abort();
+                }
+                request = $.ajax(
+                    {
+                        type: 'GET',
+                        url: url,
+                        success: handleResponse
+                    }
+                );
+                
+            }
+
+            function setup(){
+                $('#DEPT').on('input', getResults);
+                $('#NUM').on('input', getResults);
+                $('#AREA').on('input', getResults);
+                $('#TITLE').on('input', getResults);
+                getResults();
+            }
+
+            $('document').ready(setup);
+        </script>
         </body>
     </html>
 ''')

@@ -114,7 +114,21 @@ def index():
     return response
 
 #-----------------------------------------------------------------------
+@app.route('/searchresults', methods=['GET'])
+def search_results():
+    dept = flask.request.args.get("dept")
+    num = flask.request.args.get("num")
+    area = flask.request.args.get("area")
+    title = flask.request.args.get("title")
 
+    classes = database.filter_classes(dept, num, area, title)
+    search_results = format_classes(classes)
+
+    response = flask.make_response(search_results)
+    return response
+ 
+
+#-----------------------------------------------------------------------
 @app.route('/regdetails', methods=['GET'])
 
 def reg_details():
