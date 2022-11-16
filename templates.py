@@ -42,7 +42,7 @@ INDEX_TEMPLATE = ('''
         <html>
         <head>
             <title>Registrar's Office Class Search</title>
-            
+
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -52,11 +52,11 @@ INDEX_TEMPLATE = ('''
                 padding-top: 10px;
                 font-family: "Lato";
                 font-size:calc(2vw + 20px);
-                
+
                 }
                 body {
                 font-family: "Lato";
-                
+
                 }
                 input         {
                 font-size:20px;
@@ -151,18 +151,18 @@ INDEX_TEMPLATE = ('''
                 ::placeholder {
                 color: #FFFFFF;
                 opacity: 0.6;
-                font-style: italic; 
+                font-style: italic;
                 }
 
                 .footer {
-                background-color:#E77500; 
+                background-color:#E77500;
                 color:white;
                 padding: 10px;
                 border-radius: 25px;
                 border-top-left-radius:0px;
                 border-top-right-radius:0px;
                 }
-            
+
             </style>
         </head>
         <body>
@@ -171,17 +171,18 @@ INDEX_TEMPLATE = ('''
 
             {{form}}
 
-            
+
         </div>
-        <div id="RESULTS"> 
+        <div id="RESULTS">
             {{search_results}}
         </div>
-            
+
             {{footer}}
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
             'use strict';
+
             function handleResponse(response){
                 $('#RESULTS').html(response);
             }
@@ -195,8 +196,7 @@ INDEX_TEMPLATE = ('''
                 num = encodeURIComponent(num);
                 area = encodeURIComponent(area);
                 title = encodeURIComponent(title);
-                url = '/searchresults?dept=' + dept + '&num=' + num + '&area=' + area + '&title=' + title;
-             
+                let url = '/searchresults?dept=' + dept + '&num=' + num + '&area=' + area + '&title=' + title;
 
                 if (request != null){
                     request.abort();
@@ -208,7 +208,7 @@ INDEX_TEMPLATE = ('''
                         success: handleResponse
                     }
                 );
-                
+
             }
 
             function setup(){
@@ -244,7 +244,7 @@ REG_DETAILS_TEMPLATE = ('''
 
                 }
                 .footer {
-                    background-color:#E77500; 
+                    background-color:#E77500;
                     color:white;
                     padding: 10px;
                     border-radius: 25px;
@@ -303,7 +303,7 @@ ERROR_PAGE_TEMPLATE = ('''
 
                 }
                 .footer {
-                    background-color:#E77500; 
+                    background-color:#E77500;
                     color:white;
                     padding: 10px;
                     border-radius: 25px;

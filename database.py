@@ -11,9 +11,10 @@ def sanitize(field):
     input: string field
     output: string with '%' and '_' formatted for SQL
     """
-    sanitized = field.replace('%', '\\%')
-    sanitized = sanitized.replace('_', '\\_')
+    sanitized = field.replace("%", "\\%")
+    sanitized = sanitized.replace("_", "\\_")
     return sanitized
+
 
 # Generate query based on available user input
 def generate_query(dept, num, area, title):
@@ -28,40 +29,41 @@ def generate_query(dept, num, area, title):
     generated SQL query body,
     generated SQL query args
     """
-    query_body=''
-    if(dept or num or area or title):
+    query_body = ""
+    if dept or num or area or title:
         query_body = "WHERE "
     first = True
     query_args = []
     if dept:
         if not first:
-            query_body+= ' AND '
-        query_body+= "cross.dept LIKE ?"
-        query_args.append("%"+sanitize(dept)+"%")
+            query_body += " AND "
+        query_body += "cross.dept LIKE ?"
+        query_args.append("%" + sanitize(dept) + "%")
         first = False
     if area:
         if not first:
-            query_body+= ' AND '
-        query_body+= "co.area LIKE ?"
-        query_args.append("%"+sanitize(area)+"%")
+            query_body += " AND "
+        query_body += "co.area LIKE ?"
+        query_args.append("%" + sanitize(area) + "%")
         first = False
     if title:
         if not first:
-            query_body+= ' AND '
-        query_body+= "co.title LIKE ?"
-        query_args.append("%"+sanitize(title.lower())+"%")
+            query_body += " AND "
+        query_body += "co.title LIKE ?"
+        query_args.append("%" + sanitize(title.lower()) + "%")
         first = False
     if num:
         if not first:
-            query_body+= ' AND '
-        query_body+= "cross.coursenum LIKE ?"
-        query_args.append("%"+sanitize(str(num))+"%")
+            query_body += " AND "
+        query_body += "cross.coursenum LIKE ?"
+        query_args.append("%" + sanitize(str(num)) + "%")
         first = False
-    if(dept or num or area or title):
+    if dept or num or area or title:
         query_body += "ESCAPE '\\'"
     return query_body, query_args
 
-#returns all classes with specified attrebutes
+
+# returns all classes with specified attrebutes
 def filter_classes(dept=None, num=None, area=None, title=None):
     """
     Inputs:
@@ -73,8 +75,7 @@ def filter_classes(dept=None, num=None, area=None, title=None):
     Class descriptions filtered on inputs
     """
     try:
-        with sqlite3.connect("reg.sqlite",
-            isolation_level = None) as connection:
+        with sqlite3.connect("reg.sqlite", isolation_level=None) as connection:
             with contextlib.closing(connection.cursor()) as cursor:
                 query_head = """
                     SELECT cl.classid, cross.dept, cross.coursenum,
@@ -87,32 +88,36 @@ def filter_classes(dept=None, num=None, area=None, title=None):
                         crosslistings as cross
                         ON cl.courseid = cross.courseid
                 """
-                query_body, query_args = generate_query(dept,
-                num,area,title)
+                query_body, query_args = generate_query(dept, num, area, title)
                 query_closing = """
                     ORDER BY cross.dept ASC,
                     cross.coursenum ASC,
                     cl.classid ASC
                 """
-                cursor.execute(query_head+query_body+query_closing,
-                query_args)
+                cursor.execute(query_head + query_body + query_closing, query_args)
                 results = cursor.fetchall()
 
                 output = []
                 for result in results:
-                    class_object = {'id': str(result[0]),
-                                    'dept':str(result[1]),
-                                    'coursenum':str(result[2]),
-                                    'area': str(result[3]),
-                                    'title': str(result[4])}
+                    class_object = {
+                        "id": str(result[0]),
+                        "dept": str(result[1]),
+                        "coursenum": str(result[2]),
+                        "area": str(result[3]),
+                        "title": str(result[4]),
+                    }
                     output.append(class_object)
                 return output
 
     except Exception as ex:
-        print(sys.argv[0] + ": " +str(ex), file=sys.stderr)
-        return 0
+        print(
+            "A server error occured. Please contact the system administrator.",
+            file=sys.stderr,
+        )
+        return False
 
-#returns details for a given class_id
+
+# returns details for a given class_id
 def get_class_details(class_id):
     """
     Input:
@@ -133,8 +138,7 @@ def get_class_details(class_id):
     """
     output = {}
     try:
-        with sqlite3.connect("reg.sqlite",
-        isolation_level = None) as connection:
+        with sqlite3.connect("reg.sqlite", isolation_level=None) as connection:
             with contextlib.closing(connection.cursor()) as cursor:
                 class_query = """
                     SELECT *
@@ -167,10 +171,10 @@ def get_class_details(class_id):
                 class_result = cursor.fetchone()
 
                 if not class_result:
-                    return print(sys.argv[0] +
-                    ": no class with classid "
-                    +class_id+" exists",
-                    file=sys.stderr)
+                    return print(
+                        sys.argv[0] + ": no class with classid " + class_id + " exists",
+                        file=sys.stderr,
+                    )
 
                 output["course_id"] = str(class_result[1])
                 output["days"] = str(class_result[2])
@@ -183,7 +187,7 @@ def get_class_details(class_id):
                 cross_result = cursor.fetchall()
                 dept_and_num = []
                 for c_result in cross_result:
-                    dept_and_num.append(c_result[0]+" "+ c_result[1])
+                    dept_and_num.append(c_result[0] + " " + c_result[1])
 
                 output["dept_and_num"] = dept_and_num
 
@@ -202,5 +206,5 @@ def get_class_details(class_id):
                 return output
 
     except Exception as ex:
-        print(sys.argv[0] + ": " +str(ex), file=sys.stderr)
+        print(sys.argv[0] + ": " + str(ex), file=sys.stderr)
         return 0
