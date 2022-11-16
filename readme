@@ -3,21 +3,24 @@ nc16_jsahmad
 Nickolas Casalinuovo
 Jamil Saadi Ahmad
 
-Assignment 1
+Assignment 4
 
-Nick: 
+Nick: I debugged Saadis JQuery and Axaj code and
+helped patch some bugs that his code had. Also,
+I styled the code to get a higher grade from
+pylint.
 
-Saadi: I changed the style of the html code to a 
-responsive layout with a princeton color theme. I 
-also implemented the jquery/ajax code in the html 
-template and the flask /searchresults code. I did 
+Saadi: I changed the style of the html code to a
+responsive layout with a princeton color theme. I
+also implemented the jquery/ajax code in the html
+template and the flask /searchresults code. I did
 some quick bug fixes and basic testing.
 
 Help Received: N/A
 
 Information Used:
 
-Time Spent:
+Time Spent: 3 hours
 
 Assesment:
 
