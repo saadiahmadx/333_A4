@@ -6,6 +6,8 @@ import contextlib
 import sqlite3
 
 # Sanitize text input
+
+
 def sanitize(field):
     """
     input: string field
@@ -88,13 +90,15 @@ def filter_classes(dept=None, num=None, area=None, title=None):
                         crosslistings as cross
                         ON cl.courseid = cross.courseid
                 """
-                query_body, query_args = generate_query(dept, num, area, title)
+                query_body, query_args = generate_query(
+                    dept, num, area, title)
                 query_closing = """
                     ORDER BY cross.dept ASC,
                     cross.coursenum ASC,
                     cl.classid ASC
                 """
-                cursor.execute(query_head + query_body + query_closing, query_args)
+                cursor.execute(query_head + query_body +
+                               query_closing, query_args)
                 results = cursor.fetchall()
 
                 output = []
@@ -138,7 +142,8 @@ def get_class_details(class_id):
     """
     output = {}
     try:
-        with sqlite3.connect("reg.sqlite", isolation_level=None) as connection:
+        with sqlite3.connect("reg.sqlite",
+                             isolation_level=None)as connection:
             with contextlib.closing(connection.cursor()) as cursor:
                 class_query = """
                     SELECT *
@@ -172,7 +177,8 @@ def get_class_details(class_id):
 
                 if not class_result:
                     return print(
-                        sys.argv[0] + ": no class with classid " + class_id + " exists",
+                        sys.argv[0] + ": no class with classid " +
+                        class_id + " exists",
                         file=sys.stderr,
                     )
 

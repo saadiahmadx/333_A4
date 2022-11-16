@@ -11,7 +11,8 @@ app = flask.Flask(__name__)
 
 
 def error(string):
-    html_code = templates.ERROR_PAGE_TEMPLATE.replace("{{error}}", string)
+    html_code = templates.ERROR_PAGE_TEMPLATE.replace(
+        "{{error}}", string)
     response = flask.make_response(html_code)
     return response
 
@@ -99,7 +100,8 @@ def index():
     classes = database.filter_classes(dept, num, area, title)
 
     if classes is False:
-        error_page = templates.ERROR_PAGE_TEMPLATE.replace("{{header}}", header)
+        error_page = templates.ERROR_PAGE_TEMPLATE.replace(
+            "{{header}}", header)
         error_page = error_page.replace("{{footer}}", footer)
         error_page = error_page.replace(
             "{{error}}",
@@ -111,9 +113,11 @@ def index():
     else:
         search_results = format_classes(classes)
 
-        html_code = templates.INDEX_TEMPLATE.replace("{{header}}", header)
+        html_code = templates.INDEX_TEMPLATE.replace(
+            "{{header}}", header)
         html_code = html_code.replace("{{form}}", form)
-        html_code = html_code.replace("{{search_results}}", search_results)
+        html_code = html_code.replace(
+            "{{search_results}}", search_results)
         html_code = html_code.replace("{{footer}}", footer)
 
         response = flask.make_response(html_code)
@@ -142,16 +146,19 @@ def reg_details():
     header = templates.HEADER_TEMPLATE
     footer = templates.FOOTER_TEMPLATE
 
-    html_code = templates.REG_DETAILS_TEMPLATE.replace("{{header}}", header)
+    html_code = templates.REG_DETAILS_TEMPLATE.replace(
+        "{{header}}", header)
     html_code = html_code.replace("{{footer}}", footer)
 
     class_id = flask.request.args.get("classid")
 
-    error_page = templates.ERROR_PAGE_TEMPLATE.replace("{{header}}", header)
+    error_page = templates.ERROR_PAGE_TEMPLATE.replace(
+        "{{header}}", header)
     error_page = error_page.replace("{{footer}}", footer)
 
     if not class_id:
-        error_page = error_page.replace("{{error}}", "Missing class id.")
+        error_page = error_page.replace(
+            "{{error}}", "Missing class id.")
         return flask.make_response(error_page)
 
     try:
@@ -159,7 +166,8 @@ def reg_details():
         class_id = str(class_id)
     except:
         return flask.make_response(
-            error_page.replace("{{error}}", "Class id must be an integer.")
+            error_page.replace(
+                "{{error}}", "Class id must be an integer.")
         )
 
     class_details = database.get_class_details(class_id)
@@ -178,16 +186,22 @@ def reg_details():
         return flask.make_response(error_page)
 
     html_code = html_code.replace("{{class_id}}", class_id)
-    html_code = html_code.replace("{{course_id}}", class_details.get("course_id"))
+    html_code = html_code.replace(
+        "{{course_id}}", class_details.get("course_id"))
     html_code = html_code.replace("{{days}}", class_details.get("days"))
-    html_code = html_code.replace("{{start_time}}", class_details.get("start_time"))
-    html_code = html_code.replace("{{end_time}}", class_details.get("end_time"))
-    html_code = html_code.replace("{{building}}", class_details.get("building"))
+    html_code = html_code.replace(
+        "{{start_time}}", class_details.get("start_time"))
+    html_code = html_code.replace(
+        "{{end_time}}", class_details.get("end_time"))
+    html_code = html_code.replace(
+        "{{building}}", class_details.get("building"))
     html_code = html_code.replace("{{room}}", class_details.get("room"))
 
     html_code = html_code.replace("{{area}}", class_details.get("area"))
-    html_code = html_code.replace("{{title}}", class_details.get("title"))
-    html_code = html_code.replace("{{description}}", class_details.get("description"))
+    html_code = html_code.replace(
+        "{{title}}", class_details.get("title"))
+    html_code = html_code.replace(
+        "{{description}}", class_details.get("description"))
     html_code = html_code.replace(
         "{{prerequisites}}", class_details.get("prerequisites")
     )
