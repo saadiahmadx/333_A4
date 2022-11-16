@@ -1,8 +1,8 @@
 TODO:
     Fix state handling issue (from previous assignment grader)
-    Implement A4 functionality:
-        - 
-        - 
+    Implement A4:
+        - auto-refresh: uses JavaScript and AJAX to generate new output in its primary page each time the user types a new input character
+        - application responsive to browser window size + better aesthetics
         - 
 
 
