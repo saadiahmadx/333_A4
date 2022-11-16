@@ -316,7 +316,9 @@ ERROR_PAGE_TEMPLATE = ('''
             </style>
         </head>
         <body>
-            <center><h1 style="background-color:#E77500; color:white" >Registrar's Office: Class Search</h1></center>
+            <div style="background-color:#E77500;">
+                <center><h1 style="background-color:#E77500; color:white; padding:40px;" >Registrar's Office: Class Search</h1></center>
+            </div>
 
             <p><strong>{{error}}</strong></p>
 
