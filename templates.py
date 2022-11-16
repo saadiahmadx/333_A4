@@ -42,7 +42,7 @@ INDEX_TEMPLATE = ('''
         <html>
         <head>
             <title>Registrar's Office Class Search</title>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+            
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -179,12 +179,13 @@ INDEX_TEMPLATE = ('''
             
             {{footer}}
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
             'use strict';
             function handleResponse(response){
                 $('#RESULTS').html(response);
             }
-            var request = null;
+            let request = null;
             function getResults(){
                 let dept = $('#DEPT').val();
                 let num = $('#NUM').val();
